@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Open University of Sri Lanka</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #e6e9f0;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 260px;
+            background: rgb(243, 238, 238);
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .university-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .university-subtext {
+            font-size: 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #4b5563;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item i {
+            margin-right: 12px;
+        }
+
+        .nav-item.active {
+            background-color: #6d28d9;
+            color: rgb(255, 255, 255);
+        }
+
+        .nav-item:hover:not(.active) {
+            background-color: #dbd8e7;
+        }
+
+        .leaderboard {
+            margin-top: 30px;
+            padding: 15px;
+            background: #b5d1f0;
+            border-radius: 8px;
+        }
+
+        .leaderboard-chart {
+            width: 100%;
+            height: 120px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 24px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .search-bar {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .search-bar input {
+            padding: 8px 16px;
+            padding-right: 40px;
+            border-radius: 8px;
+            border: none;
+            background: #1f2937;
+            color: white;
+            width: 250px;
+        }
+
+        .search-bar i {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-actions img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        /* Cards */
+        .card {
+            background: #1f2937;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            color: white;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .zoom-actions {
+            display: flex;
+            gap: 32px;
+        }
+
+        .zoom-action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        .zoom-action-icon {
+            width: 48px;
+            height: 48px;
+            background: #374151;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        /* Games List */
+        .games-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .game-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Contacts */
+        .contacts-list {
+            display: flex;
+            gap: 24px;
+        }
+
+        .contact {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .contact img {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #7c3aed;
+        }
+
+        .online-status {
+            width: 12px;
+            height: 12px;
+            background: #10b981;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+        }
+
+        .contact-name {
+            margin-top: 4px;
+            font-size: 14px;
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            width: 320px;
+            padding: 24px;
+        }
+
+        .group-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .group-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            background: #374151;
+            border-radius: 8px;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .event-calendar {
+            background: #7c3aed;
+            border-radius: 12px;
+            padding: 24px;
+            color: white;
+            margin-top: 24px;
+        }
+
+        .calendar-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sign-out {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px; 
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            background-color: #6b6b6d;
+            border-radius: 8px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        nav a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease-out;
+}
+
+.modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.modal-content label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.modal-content button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #6d28d9;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.modal-content button:hover {
+    background-color: #5b21b6;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: black;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Left Sidebar -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/LogoDash.png') }}" alt="University Logo">
+            <div>
+                <div class="university-name">THE OPEN UNIVERSITY</div>
+                <div class="university-subtext">OF SRI LANKA</div>
+            </div>
+        </div>
+
+        <nav>
+            <a href="/dashboard" class="nav-item active">
+                <i class="fas fa-chart-bar"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/collaborative-tools" class="nav-item">
+                <i class="fas fa-share-alt"></i>
+                <span>Collaborative Tools</span>
+            </a>
+            <a href="/social-media" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Social Media</span>
+            </a>
+            <a href="/gamifield-learning" class="nav-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Gamifield Learning</span>
+            </a>
+            <a href="/study-groups" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Study Groups</span>
+            </a>
+            <a href="/settings" class="nav-item">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </nav>
+
+        <div class="leaderboard">
+            <h3>Leaderboard</h3>
+            <div class="leaderboard-chart"></div>
+            <button>Change Format</button>
+        </div>
+
+        <button class="sign-out">
+            <i class="fas fa-sign-out-alt"></i>
+            <span> <a href="/"> Sign Out</a></span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <!-- Profile Modal -->
+<div id="profileModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Profile</h2>
+        <form id="profileForm">
+            <div>
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div>
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+            <h1>Welcome to Dashboard - {{ username }}</h1>
+            <div class="header-actions">
+                <div class="search-bar">
+                    <input type="text" placeholder="Search Here">
+                    <i class="fas fa-search"></i>
+                </div>
+                <i class="fas fa-bell"></i>
+                <img src="/api/placeholder/40/40" alt="Profile">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Zoom Events</h2>
+                <i class="fas fa-minus"></i>
+            </div>
+            <div class="zoom-actions">
+                <button class="zoom-action">
+                    <div class="zoom-action-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <span>Create Meet</span>
+                </button>
+                <button class="zoom-action">
+                    <div class="zoom-action-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <span>Schedule Meet</span>
+                </button>
+                <button class="zoom-action">
+                    <div class="zoom-action-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <span>Join Meet</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid-container">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Upcoming Events</h2>
+                    <div>
+                        <i class="fas fa-minus"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                </div>
+                <div style="text-align: center; color: #9ca3af;">
+                    <p>No Events</p>
+                    <p>Up to Now</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h2>Games</h2>
+                    <div>
+                        <i class="fas fa-minus"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                </div>
+                <div class="games-list">
+                    <div class="game-item">
+                        <span>❤️</span>
+                        <span>Kahoot!</span>
+                    </div>
+                    <div class="game-item">
+                        <span>🏥</span>
+                        <span>Python Quize</span>
+                    </div>
+                    <div class="game-item">
+                        <span>⬡</span>
+                        <span>Java Quize</span>
+                    </div>
+                    <div class="game-item">
+                        <span>⚡</span>
+                        <span>Electro</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Saved Contact</h2>
+                <div>
+                    <i class="fas fa-minus"></i>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+            </div>
+            <div class="contacts-list">
+                <div class="contact">
+                    <img src="/api/placeholder/48/48" alt="Alfredo">
+                    <div class="online-status"></div>
+                    <span class="contact-name">Alfredo</span>
+                </div>
+                <div class="contact">
+                    <img src="/api/placeholder/48/48" alt="Claudia">
+                    <div class="online-status"></div>
+                    <span class="contact-name">Claudia</span>
+                </div>
+                <div class="contact">
+                    <img src="/api/placeholder/48/48" alt="Cahaya">
+                    <div class="online-status"></div>
+                    <span class="contact-name">Cahaya</span>
+                </div>
+                <div class="contact">
+                    <img src="/api/placeholder/48/48" alt="Mariana">
+                    <span class="contact-name">Mariana</span>
+                </div>
+                <div class="contact">
+                    <img src="/api/placeholder/48/48" alt="Marceline">
+                    <div class="online-status"></div>
+                    <span class="contact-name">Marceline</span>
+                </div>
+                <div class="contact">
+                    <img src="/api/placeholder/48/48" alt="Teddy">
+                    <div class="online-status"></div>
+                    <span class="contact-name">Teddy</span>
+                </div>
+                <div class="contact">
+                    <img src="/api/placeholder/48/48" alt="Yael">
+                    <div class="online-status"></div>
+                    <span class="contact-name">Yael</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Sidebar -->
+    <div class="right-sidebar">
+        <div class="card">
+            <div class="card-header">
+                <h2>Group details</h2>
+                <i class="fas fa-minus"></i>
+            </div>
+            <div class="group-actions">
+                <button class="group-action">
+                    <i class="fas fa-users"></i>
+                    <span>Create Group</span>
+                </button>
+                <button class="group-action">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Join Group</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="event-calendar">
+            <div class="calendar-header">
+                <i class="fas fa-calendar"></i>
+                <h2>Event Calendar</h2>
+                <i class="fas fa-minus"></i>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add any JavaScript functionality here
+
+        // Profile Modal Logic
+
+        const modal = document.getElementById('profileModal');
+const closeBtn = document.querySelector('.close');
+
+closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+});
+
+const openModalBtn = document.querySelector('.header-actions img');
+openModalBtn.addEventListener('click', () => {
+    modal.style.display = 'block';
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const profileModal = document.getElementById('profileModal');
+    const profileButton = document.querySelector('.header-actions img'); // Profile button
+    const closeButton = document.querySelector('.modal .close');
+    const profileForm = document.getElementById('profileForm');
+
+    // Open modal when profile button is clicked
+    profileButton.addEventListener('click', function () {
+        profileModal.style.display = 'block';
+    });
+
+    // Close modal when close button is clicked
+    closeButton.addEventListener('click', function () {
+        profileModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside the modal
+    window.addEventListener('click', function (event) {
+        if (event.target === profileModal) {
+            profileModal.style.display = 'none';
+        }
+    });
+
+    // Handle form submission
+    profileForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const email = document.getElementById('email').value;
+        const age = document.getElementById('age').value;
+
+        console.log('Profile Updated:', { firstName, lastName, email, age });
+
+        // Optionally, save this data to the backend via AJAX or fetch
+
+        alert('Profile updated successfully!');
+        profileModal.style.display = 'none';
+    });
+});
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation item click handler
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Minimize card handler
+            const minimizeButtons = document.querySelectorAll('.fa-minus');
+            minimizeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = button.closest('.card');
+            if (card) {
+                const content = card.querySelector(':scope > *:not(.card-header)');
+                if (content) {
+                    content.style.display = content.style.display === 'none' ? '' : 'none';
+                }
+            }
+        });
+    });
+});

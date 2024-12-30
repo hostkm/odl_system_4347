@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collaborative Tools</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- For icons -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+        }
+        .sidebar {
+            width: 260px;
+            background: rgb(243, 238, 238);
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+        .university-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .university-subtext {
+            font-size: 12px;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #4b5563;
+            transition: background-color 0.3s;
+        }
+        .nav-item i {
+            margin-right: 12px;
+        }
+        .nav-item.active {
+            background-color: #6d28d9;
+            color: white;
+        }
+        .nav-item:hover:not(.active) {
+            background-color: #dbd8e7;
+        }
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #0073e6;
+        }
+        .button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #0073e6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #005bb5;
+        }
+        .whiteboard, .document-editor, .task-manager, .file-sharing, .video-conferencing {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            margin-top: 10px;
+        }
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+        }
+        nav a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/LogoDash.png') }}" alt="University Logo">
+            <div>
+                <div class="university-name">THE OPEN UNIVERSITY</div>
+                <div class="university-subtext">OF SRI LANKA</div>
+            </div>
+        </div>
+        <nav>
+            <a href="/dashboard" class="nav-item active">
+                <i class="fas fa-chart-bar"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/collaborative-tools" class="nav-item">
+                <i class="fas fa-share-alt"></i>
+                <span>Collaborative Tools</span>
+            </a>
+            <a href="/social-media" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Social Media</span>
+            </a>
+            <a href="/gamifield-learning" class="nav-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Gamifield Learning</span>
+            </a>
+            <a href="/study-groups" class="nav-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Study Groups</span>
+            </a>
+            
+        </nav>
+    </div>
+
+    <div class="container">
+        <!-- Shared Whiteboard Section -->
+        <div class="section whiteboard">
+            <h2>Shared Whiteboards</h2>
+            <p>Brainstorm and solve problems interactively.</p>
+            <iframe id="whiteboard" src="https://lucid.app/lucidchart/e537024c-23e8-477c-b4f4-dea2d1d1cff4/edit?viewport_loc=-11%2C-11%2C1480%2C637%2C0_0&invitationId=inv_ee60b9f2-a7c1-4da7-bd97-9196f16b136d" title="Whiteboard"></iframe>
+            <button class="button" onclick="saveWhiteboard()">Save Whiteboard Session</button>
+        </div>
+
+        <!-- Document Co-Editing Section -->
+        <div class="section document-editor">
+            <h2>Document Co-Editing</h2>
+            <p>Edit documents collaboratively in real-time.</p>
+            <iframe src="https://lucid.app/lucidchart/e537024c-23e8-477c-b4f4-dea2d1d1cff4/edit?viewport_loc=-11%2C-11%2C1480%2C637%2C0_0&invitationId=inv_ee60b9f2-a7c1-4da7-bd97-9196f16b136d" width="100%" height="600" frameborder="0"></iframe>
+        </div>
+
+        <!-- Group Task Management Section -->
+        <div class="section task-manager">
+            <h2>Group Task Management</h2>
+            <p>Assign tasks, set deadlines, and track progress.</p>
+            <ul>
+                <li>Task 1: <input type="checkbox"> Complete Presentation</li>
+                <li>Task 2: <input type="checkbox"> Review Document</li>
+                <li>Task 3: <input type="checkbox"> Submit Assignment</li>
+            </ul>
+            <button class="button">Add New Task</button>
+        </div>
+
+        <!-- File Sharing Section -->
+        <div class="section file-sharing">
+            <h2>File Sharing</h2>
+            <p>Upload and share study materials securely. Use the link below to access the shared drive:</p>
+            <a href="https://drive.google.com/drive/folders/1d8eUiglfEUC9EjQuIT60q0r_9q24QB7S?usp=sharing" target="_blank" class="button">Open Shared Drive</a>
+        </div>
+
+        <!-- Video/Audio Conferencing Section -->
+        <div class="section video-conferencing">
+            <h2>Video/Audio Conferencing</h2>
+            <p>Join live sessions for group discussions.</p>
+            <button class="button" onclick="window.open('https://zoom.us', '_blank')">Start Zoom Meeting</button>
+            <button class="button" onclick="window.open('https://teams.microsoft.com', '_blank')">Start Teams Meeting</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script>
+        // Save Whiteboard Content (Screenshot)
+        function saveWhiteboard() {
+            const whiteboard = document.getElementById('whiteboard');
+
+            html2canvas(whiteboard).then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const a = document.createElement('a');
+                a.href = imgData;
+                a.download = 'whiteboard-session.png';
+                a.click();
+                alert('Whiteboard session saved as an image. You can upload it to the shared drive manually.');
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

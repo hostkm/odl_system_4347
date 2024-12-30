@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Groups</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            display: flex;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 260px;
+            background: rgb(243, 238, 238);
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .university-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .university-subtext {
+            font-size: 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            cursor: pointer;
+            color: #4b5563;
+            transition: background-color 0.3s;
+        }
+
+        .nav-item i {
+            margin-right: 12px;
+        }
+
+        .nav-item.active {
+            background-color: #6d28d9;
+            color: white;
+        }
+
+        .nav-item:hover:not(.active) {
+            background-color: #dbd8e7;
+        }
+
+        /* Content Styling */
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+            width: calc(100% - 260px);
+        }
+
+        header {
+            background-color: #0073e6;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #0073e6;
+        }
+
+        .button {
+            padding: 10px 15px;
+            color: white;
+            background-color: #0073e6;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #005bb5;
+        }
+
+        input, select {
+            padding: 8px;
+            margin: 10px 0;
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .chat-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/LogoDash.png') }}" alt="University Logo">
+            <div>
+                <div class="university-name">THE OPEN UNIVERSITY</div>
+                <div class="university-subtext">OF SRI LANKA</div>
+            </div>
+        </div>
+
+        <nav>
+            <a href="/dashboard" class="nav-item">
+                <i class="fas fa-chart-bar"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="/collaborative-tools" class="nav-item">
+                <i class="fas fa-share-alt"></i>
+                <span>Collaborative Tools</span>
+            </a>
+            <a href="/social-media" class="nav-item">
+                <i class="fas fa-users"></i>
+                <span>Social Media</span>
+            </a>
+            <a href="/gamifield-learning" class="nav-item">
+                <i class="fas fa-gamepad"></i>
+                <span>Gamifield Learning</span>
+            </a>
+            <a href="/study-groups" class="nav-item active">
+                <i class="fas fa-user-friends"></i>
+                <span>Study Groups</span>
+            </a>
+            
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <header>
+            <h1>Study Groups</h1>
+        </header>
+        <div class="container">
+            <!-- Group Creation and Management Section -->
+            <div class="section">
+                <h2>Group Creation and Management</h2>
+                <form id="createGroupForm">
+                    <label for="groupName">Group Name:</label>
+                    <input type="text" id="groupName" placeholder="Enter group name">
+
+                    <label for="groupPrivacy">Privacy:</label>
+                    <select id="groupPrivacy">
+                        <option value="public">Public</option>
+                        <option value="private">Private</option>
+                    </select>
+
+                    <button class="button" type="button" onclick="createGroup()">Create Group</button>
+                </form>
+            </div>
+
+            <!-- Discussion Channels Section -->
+            <div class="section">
+                <h2>Discussion Channels</h2>
+                <textarea placeholder="Start a new thread..."></textarea>
+                <button class="button">Post</button>
+                <div class="chat-box">
+                    <p><strong>John:</strong> Welcome to the new study group!</p>
+                    <p><strong>Jane:</strong> Thanks! Let's discuss the upcoming project.</p>
+                </div>
+            </div>
+
+            <!-- Peer Mentoring Program Section -->
+            <div class="section">
+                <h2>Peer Mentoring Program</h2>
+                <p>Connect with experienced students for guidance:</p>
+                <button class="button">Find a Mentor</button>
+            </div>
+
+            <!-- Schedule Group Meetings Section -->
+            <div class="section">
+                <h2>Schedule Group Meetings</h2>
+                <label for="meetingDate">Meeting Date:</label>
+                <input type="date" id="meetingDate">
+
+                <label for="meetingTime">Meeting Time:</label>
+                <input type="time" id="meetingTime">
+
+                <button class="button">Schedule Meeting</button>
+            </div>
+
+            <!-- Resource Sharing Section -->
+            <div class="section">
+                <h2>Resource Sharing</h2>
+                <input type="file">
+                <button class="button">Upload Resource</button>
+            </div>
+
+            <!-- Group Activity Tracker Section -->
+            <div class="section">
+                <h2>Group Activity Tracker</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Activity</th>
+                            <th>Member</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Uploaded Resource</td>
+                            <td>John</td>
+                            <td>2024-12-21</td>
+                        </tr>
+                        <tr>
+                            <td>Started Thread</td>
+                            <td>Jane</td>
+                            <td>2024-12-20</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Live Chat and Video Conferencing Section -->
+            <div class="section">
+                <h2>Live Chat and Video Conferencing</h2>
+                <div class="chat-box">
+                    <p><strong>Jane:</strong> Are we meeting today?</p>
+                    <p><strong>John:</strong> Yes, at 5 PM on Zoom.</p>
+                </div>
+                <button class="button" onclick="window.open('https://zoom.us', '_blank')">Start Zoom Meeting</button>
+                <button class="button" onclick="window.open('https://teams.microsoft.com', '_blank')">Start Teams Meeting</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function createGroup() {
+            const groupName = document.getElementById('groupName').value;
+            const groupPrivacy = document.getElementById('groupPrivacy').value;
+            if (groupName) {
+                alert(`Group "${groupName}" created as ${groupPrivacy}`);
+            } else {
+                alert('Please enter a group name.');
+            }
+        }
+    </script>
+</body>
+</html>

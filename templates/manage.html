@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background: url("{{ url_for('static', filename='images/loginBg.jpg') }}") no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #000000;
+    margin-bottom: 20px;
+   font-size: 90px;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background: url("{{ url_for('static', filename='images/loginBox.jpg') }}") no-repeat center center ;
+    background-size: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 14px; /* Reduced font size */
+}
+
+table thead {
+    background-color: rgba(206, 171, 77, 0.8);
+    color: white;
+}
+
+table th, table td {
+    padding: 8px; /* Reduced padding */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table tbody tr:hover {
+    background-color: rgba(241, 241, 241, 0.8);
+}
+
+table tbody tr {
+    height: 30px; /* Reduced row height */
+}
+
+button {
+    background-color: #FF6600;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e65c00;
+}
+
+table thead th {
+    text-align: center;
+}
+
+table tbody td {
+    text-align: center;
+}
+
+form {
+    margin: 0;
+}
+    </style>
+</head>
+<body>
+    <h1>Manage Users</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>
+                    <form action="{{ url_for('delete_user', username=user[0]) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

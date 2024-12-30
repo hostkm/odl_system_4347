@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title style="font-family: 'Pacifico', cursive;">How to Use ODL Website</title>
+    <style>
+        /* General Reset */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #9face6);
+            color: #333;
+        }
+
+        header {
+            background: #3a3f51;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f9f9f9;
+            border-left: 4px solid #3a3f51;
+            border-radius: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .step:hover {
+            transform: scale(1.02);
+            background: #f1f1f1;
+        }
+
+        .step h2 {
+            margin: 0;
+            color: #3a3f51;
+        }
+
+        .step p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .btn-container button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            color: white;
+            background: #3a3f51;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .btn-container button:hover {
+            background: #555;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 10px;
+            background: #3a3f51;
+            color: white;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>How to Use the ODL Website</h1>
+    </header>
+
+    <div class="container">
+        <div class="step">
+            <h2>Step 1: Contact your administrater</h2>
+            <p>To get started, create an account by clicking the "Sign Up" button on the home page. Fill in your details and verify your email address.</p>
+        </div>
+        <div class="step">
+            <h2><a href="{{ url_for('index') }}">Step 2: Log In</a></h2>
+            <p>Use your email and password to log in to the system. Ensure your credentials are secure and not shared with others.</p>
+        </div>
+        <div class="step">
+            <h2>Step 3: Access Courses</h2>
+            <p>Navigate to the "Courses" section to view available learning materials, lectures, and assignments.</p>
+        </div>
+        <div class="step">
+            <h2>Step 4: Submit Assignments</h2>
+            <p>Upload your assignments by selecting the course and choosing the relevant assignment submission link.</p>
+        </div>
+        <div class="step">
+            <h2>Step 5: Contact Support</h2>
+            <p>If you have any issues, visit the "Support" section to raise a ticket or check the FAQ for quick solutions.</p>
+        </div>
+        <div class="btn-container">
+            <button>
+                <a href="/">Log in </a>
+                </button>
+        </div>
+        <div class="btn-container">
+            <button onclick="showAlert()">Explore More Features</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ODL @ O U S L.</p>
+    </footer>
+
+    <script>
+        function showAlert() {
+            alert("More features coming soon! Stay tuned.");
+        }
+    </script>
+</body>
+</html>
